@@ -1,0 +1,116 @@
+@import "mixins.css.scss";
+
+html.projects {
+	body { padding-top: 60px; overflow: hidden; }
+
+	header#top div.navbar-inner {
+		min-height: 60px;
+		padding: 6px 9px 0;
+		@include background-y-image(rgba(255, 255, 255, 0.05), rgba(0, 0, 0, 0.2), url("/assets/header-bg.png"), #464646);
+		@include box-shadow(inset 0 -1px rgba(255, 255, 255, 0.1));
+		border-bottom: 1px solid #262626;
+
+		.btn-border {
+			padding: 2px 2px;
+			background: rgba(0, 0, 0, 0.05);
+			@include box-shadow(0 1px rgba(255, 255, 255, 0.1), inset 0 1px 2px rgba(0, 0, 0, 0.5));
+			@include border-radius(5px);
+		}
+
+		.btn {
+			@include background-y(#515151, #373737, #424242);
+			text-decoration: none;
+			font-size: 12px;
+			color: #f5f5f5;
+		}
+	}
+
+	.btn-border {
+		&:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
+	}
+
+	* html .btn-border { height: 1%; } //IE6
+	*:first-child+html .btn-border { min-height: 1px; } //IE7
+
+	form {
+		margin: 0;
+	}
+
+	textarea {
+		font-family: "Inconsolata", monospace;
+	}
+
+	div#editor-pane {
+		ul.nav.nav-tabs {
+			margin: 0;
+			height: 100%;
+			width: 80px;
+			border-right: 1px solid #262626;
+			@include box-shadow(inset -1px 0 rgba(255, 255, 255, 0.1));
+			@include background-y-image(rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.2), url("/assets/sidebar-bg.png"), #5E5E5E);
+			@include text-shadow(0 1px rgba(0, 0, 0, 0.2));
+
+			li {
+				text-align: center;
+				margin: 0;
+
+				a {
+					color: #f5f5f5;
+					font-size: 12px;
+					border: 0;
+					@include border-radius(0);
+					border-top: 1px solid rgba(255, 255, 255, 0.1);
+					border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+					margin: 0;
+					padding-top: 21px;
+					@include background-clip(border-box);
+					position: relative;
+
+					&:hover { background: transparent; }
+
+					div.shortcut {
+						font-size: 10px;
+						position: absolute;
+						border-right: 1px solid rgba(255, 255, 255, 0.2);
+						border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+						top: -1px;
+						left: 0;
+						padding: 0 3px 0 1px;
+						background: rgba(0, 0, 0, 0.2);
+						@include border-radius(0 0 3px 0);
+					}
+				}
+
+				&:first-child a {
+					border-top: 0;
+				}
+
+				&.active a {
+					background: rgba(0, 0, 0, 0.5);
+					@include box-shadow(inset 0 0 5px rgba(0, 0, 0, 0.2));
+					border-color: transparent;
+
+					div.shortcut {
+						display: none;
+					}
+				}
+			}
+		}
+
+		div.tab-content {
+			height: 100%;
+
+			div.tab-pane {
+				width: 100%;
+				height: 100%;
+
+				textarea {
+					background: transparent;
+					width: 100%;
+					height: 100%;
+					resize: none;
+				}
+			}
+		}
+	}
+}

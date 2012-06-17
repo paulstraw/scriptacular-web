@@ -1,0 +1,83 @@
+<script>
+	console.log(<%= @project.to_json.html_safe %>);
+</script>
+
+<header class="navbar navbar-fixed-top" id="top">
+	<div class="navbar-inner">
+		<a class="brand pull-left" href="/">Scriptacular</a>
+
+		<div class="btn-group pull-right">
+			<div class="btn-border">
+				<a class="btn btn-inverse" href="/login">Log In</a>
+				<a class="btn btn-inverse" href="/signup">Sign Up</a>
+			</div>
+		</div>
+
+		<div class="btn-group pull-right" id="project-options-dropdown">
+			<div class="btn-border">
+				<a href="#project-options-dropdown" class="btn btn-inverse dropdown-toggle" data-toggle="dropdown">Project Options <span class="caret"></span></a>
+			</div>
+
+			<ul class="dropdown-menu">
+				<li><a href="#">JavaScript Libraries</a></li>
+			</ul>
+		</div>
+
+		<div class="btn-group pull-right" id="version-dropdown">
+			<div class="btn-border">
+				<a href="#version-dropdown" class="btn btn-inverse dropdown-toggle" data-toggle="dropdown">
+					Version <%= @the_version %>
+					<%# if @the_version == @version_count then '<span class="label label-inverse">Latest</span> '.html_safe end %><span class="caret"></span>
+				</a>
+			</div>
+
+			<ul class="dropdown-menu">
+				<% if @version_count then @version_count.times do |i| %>
+					<% version_number = i + 1 %>
+					<li><a href=<%= "/#{@the_id}/#{version_number}" %>>Version <%= version_number %></a></li>
+				<% end end %>
+			</ul>
+		</div>
+
+		<div class="btn-group pull-right">
+			<div class="btn-border">
+				<button class="pull-right btn btn-inverse" id="save-project">Save</button>
+			</div>
+		</div>
+	</div>
+</header>
+
+<%= form_for @project do |f| %>
+	<div class="tabbable tabs-left" id="editor-pane">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="#tab-markup" id="tab-markup-trigger" data-toggle="tab">
+				<div class="shortcut">⌃J</div>
+				Markup
+			</a></li>
+			<li><a href="#tab-style" id="tab-style-trigger" data-toggle="tab">
+				<div class="shortcut">⌃K</div>
+				Style
+			</a></li>
+			<li><a href="#tab-script" id="tab-script-trigger" data-toggle="tab">
+				<div class="shortcut">⌃L</div>
+				Script
+			</a></li>
+			<li><a href="#tab-result" id="tab-result-trigger" data-toggle="tab">
+				<div class="shortcut">⌃;</div>
+				Result
+			</a></li>
+		</ul>
+		<div class="tab-content">
+			<div class="tab-pane active" id="tab-markup">
+				<%= f.text_area :markup %>
+			</div>
+			<div class="tab-pane" id="tab-style">
+				<%= f.text_area :style %>
+			</div>
+			<div class="tab-pane" id="tab-script">
+				<%= f.text_area :script %>
+			</div>
+			<div class="tab-pane" id="tab-result"></div>
+		</div>
+	</div>
+<% end %>
