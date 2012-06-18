@@ -29,8 +29,8 @@ class ProjectsController < ApplicationController
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width initial-scale=1">
 
-		<title></title> <!- give your project a name ->
-		<meta name="description" content=""> <!- give your project a description ->
+		<title></title> <!-- give your project a name -->
+		<meta name="description" content=""> <!-- give your project a description -->
 	</head>
 	<body>
 
