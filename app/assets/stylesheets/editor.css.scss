@@ -127,6 +127,11 @@ html.projects {
 		div.tab-content {
 			height: 100%;
 
+			iframe {
+				width: 100%;
+				height: 100%;
+			}
+
 			div.tab-pane {
 				width: 100%;
 				height: 100%;

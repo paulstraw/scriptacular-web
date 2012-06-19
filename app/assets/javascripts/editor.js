@@ -36,6 +36,7 @@ $(document).ready(function() {
 	});
 
 	//js library stuff
+	//TODO this code is kind of crappy
 	var libDropdown = $('#javascript-libraries-dropdown');
 	libDropdown.on('click', 'a', function(e) {
 		e.stopPropagation();
