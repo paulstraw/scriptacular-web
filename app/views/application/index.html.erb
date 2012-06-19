@@ -1,8 +1,8 @@
 <a href="/new">create a project</a
 
 <ul>
-	<h2>Newest Projects</h2>
-	<% @newest_projects.each do |p| %>
+	<h2>Recently Updated</h2>
+	<% @recently_updated.each do |p| %>
 		<li>
 			<h3><a href="/<%= p.slug %>/latest"><%= p.title %></a></h3>
 			<p><%= p.description %></p>

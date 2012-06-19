@@ -35,8 +35,38 @@ $(document).ready(function() {
 		return false;
 	});
 
+	//js library stuff
+	var libDropdown = $('#javascript-libraries-dropdown');
+	libDropdown.on('click', 'a', function(e) {
+		e.stopPropagation();
+	});
+
+	var jsLibs = [
+		{ title: 'jQuery 1.7.2', filename: 'jQuery-1.7.2.js', libraryId: 1, current: false },
+		{ title: 'Zepto 1.0rc1', filename: 'Zepto-1.0rc1.js', libraryId: 2, current: false },
+		{ title: 'Underscore 1.3.3', filename: 'Underscore-1.3.3.js', libraryId: 3, current: false },
+		{ title: 'Three r49', filename: 'Three-r49.js', libraryId: 4, current: false },
+	];
+
+	var currentLibs = $.parseJSON($('#project_libraries').val()),
+		libTemplate = _.template('<li><a href="#"><label><input<% if (current) { %> checked<% } %> type="checkbox" data-filename="<%= filename %>" data-library-id="<%= libraryId %>"> <%= title %></label></a></li>');
+	_.each(jsLibs, function(lib) {
+		if (_.indexOf(currentLibs, lib.libraryId) > -1) {
+			lib.current = true;
+		}
+		libDropdown.append(libTemplate(lib));
+	});
+
 	//bind save button
 	$('#save-project').on('click', function() {
+		var libs = [];
+
+		_.each(libDropdown.find('input:checked'), function(lib) {
+			libs.push(parseInt($(lib).data('library-id'), 10));
+		});
+
+		$('#project_libraries').val(JSON.stringify(libs));
+
 		$('form').submit();
 	});
 
@@ -83,6 +113,7 @@ $(document).ready(function() {
 		});
 	}
 
+
 	//generate result
 	//TODO clean this mess up
 	$('#tab-result-trigger').on('click', function() {
@@ -99,6 +130,25 @@ $(document).ready(function() {
 		} else {
 			markup += styleTag;
 		}
+
+		//add libraries
+		_.each(libDropdown.find('input:checked'), function(lib) {
+			lib = $(lib);
+
+			var libScriptTag = [
+				'<script src="',
+				location.origin,
+				'/js/',
+				lib.data('filename'),
+				'"></script>'
+			].join('');
+
+			if (markup.indexOf('</body>') > -1) {
+				markup = markup.replace('</body>', libScriptTag + '</body>');
+			} else {
+				markup += libScriptTag;
+			}
+		});
 
 		if (markup.indexOf('</body>') > -1) {
 			markup = markup.replace('</body>', scriptTag + '</body>');

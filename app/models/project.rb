@@ -1,7 +1,7 @@
 class Project < ActiveRecord::Base
   has_paper_trail
 
-  attr_accessible :description, :markup, :script, :style, :title
+  attr_accessible :description, :markup, :script, :style, :title, :libraries
 
   def to_param
     slug

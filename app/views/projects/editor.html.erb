@@ -1,7 +1,3 @@
-<script>
-	console.log(<%= @project.to_json.html_safe %>);
-</script>
-
 <header class="navbar navbar-fixed-top" id="top">
 	<div class="navbar-inner">
 		<a class="brand pull-left" href="/">Scriptacular</a>
@@ -13,13 +9,12 @@
 			</div>
 		</div>
 
-		<div class="btn-group pull-right" id="project-options-dropdown">
+		<div class="btn-group pull-right" id="javascript-libraries-dropdown-trigger">
 			<div class="btn-border">
-				<a href="#project-options-dropdown" class="btn btn-inverse dropdown-toggle" data-toggle="dropdown">Project Options <span class="caret"></span></a>
+				<a href="#javascript-libraries-dropdown-trigger" class="btn btn-inverse dropdown-toggle" data-toggle="dropdown">JavaScript Libraries <span class="caret"></span></a>
 			</div>
 
-			<ul class="dropdown-menu">
-				<li><a href="#">JavaScript Libraries</a></li>
+			<ul class="dropdown-menu" id="javascript-libraries-dropdown">
 			</ul>
 		</div>
 
@@ -48,6 +43,8 @@
 </header>
 
 <%= form_for @project do |f| %>
+	<%= f.hidden_field :libraries %>
+
 	<div class="tabbable tabs-left" id="editor-pane">
 		<ul class="nav nav-tabs">
 			<li class="active"><a href="#tab-markup" id="tab-markup-trigger" data-toggle="tab">
@@ -79,5 +76,21 @@
 			</div>
 			<div class="tab-pane" id="tab-result"></div>
 		</div>
+	</div>
+<% end %>
+
+<% if flash[:info] %>
+	<div class="alert alert-block alert-info">
+		<button class="close" data-dismiss="alert">&times;</button>
+		<h4>Hey there.</h4>
+		<p><%= flash[:info] %></p>
+	</div>
+<% end %>
+
+<% if flash[:error] %>
+	<div class="alert alert-error alert-block">
+		<button class="close" data-dismiss="alert">&times;</button>
+		<h4>Uh oh!</h4>
+		<p><%= flash[:error] %></p>
 	</div>
 <% end %>

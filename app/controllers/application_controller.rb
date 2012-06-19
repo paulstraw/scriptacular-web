@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   def index
-    @newest_projects = Project.order('created_at desc').limit(5)
+    @recently_updated = Project.order('updated_at desc').limit(5)
   end
 
   def not_found
