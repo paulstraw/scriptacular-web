@@ -8,6 +8,20 @@ $(document).ready(function() {
 	$(window).on('resize', resizeEditor);
 
 	//a bunch of initialization stuff
+	function loadInitialTab() {
+		var initialHash = window.location.hash;
+		if (initialHash == '#markup') {
+			$('#tab-markup-trigger').trigger('click');
+		} else if (initialHash == '#style') {
+			$('#tab-style-trigger').trigger('click');
+		} else if (initialHash == '#script') {
+			$('#tab-script-trigger').trigger('click');
+		} else if (initialHash == '#result') {
+			$('#tab-result-trigger').trigger('click');
+		}
+	}
+
+
 	var supportsCodemirror = true, //TODO detect touch devices
 		markupTextarea = $('#tab-markup').find('textarea'),
 		styleTextarea = $('#tab-style').find('textarea'),
@@ -97,27 +111,39 @@ $(document).ready(function() {
 			mode: 'javascript'
 		});
 
-		$('#tab-markup-trigger').on('click', function() {
-			_.defer(function() {
-				markupCodemirror.refresh();
-			});
-		});
-		$('#tab-style-trigger').on('click', function() {
-			_.defer(function() {
-				styleCodemirror.refresh();
-			});
-		});
-		$('#tab-script-trigger').on('click', function() {
-			_.defer(function() {
-				scriptCodemirror.refresh();
-			});
-		});
+		_.defer(loadInitialTab);
+	} else {
+		_.defer(loadInitialTab);
 	}
+
+	$('a[data-toggle="tab"]').on('shown', function (e) {
+		var oldTab = $(e.relatedTarget),
+			newTab = $(e.target);
+
+		//clear out result if we've tabbed away
+		if (oldTab.is('#tab-result-trigger')) {
+			$('#tab-result').html('');
+		}
+
+		if (newTab.is('#tab-script-trigger')) {
+			_.defer(scriptCodemirror.refresh);
+			window.location.hash = 'script';
+		} else if (newTab.is('#tab-style-trigger')) {
+			_.defer(styleCodemirror.refresh);
+			window.location.hash = 'style';
+		} else if (newTab.is('#tab-markup-trigger')) {
+			_.defer(markupCodemirror.refresh);
+			window.location.hash = 'markup';
+		} else if (newTab.is('#tab-result-trigger')) {
+			generateResult();
+			window.location.hash = 'result';
+		}
+	});
 
 
 	//generate result
 	//TODO clean this mess up
-	$('#tab-result-trigger').on('click', function() {
+	function generateResult() {
 		var markup = markupCodemirror ? markupCodemirror.getValue() : markupTextarea.val(),
 			style = styleCodemirror ? styleCodemirror.getValue() : styleTextarea.val(),
 			script = scriptCodemirror ? scriptCodemirror.getValue() : scriptTextarea.val(),
@@ -162,5 +188,5 @@ $(document).ready(function() {
 			btoa(markup),
 			'"></iframe>'
 		].join(''));
-	});
+	}
 });
