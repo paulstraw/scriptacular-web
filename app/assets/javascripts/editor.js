@@ -76,7 +76,7 @@ $(document).ready(function() {
 		markupCodemirror = CodeMirror.fromTextArea(markupTextarea[0], {
 			indentWithTabs: true,
 			lineWrapping: true,
-			gutter: false,
+			lineNumbers: true,
 			indentUnit: 4,
 			mode: 'htmlmixed'
 		});
@@ -84,7 +84,7 @@ $(document).ready(function() {
 		styleCodemirror = CodeMirror.fromTextArea(styleTextarea[0], {
 			indentWithTabs: true,
 			lineWrapping: true,
-			gutter: false,
+			lineNumbers: true,
 			indentUnit: 4,
 			mode: 'css'
 		});
@@ -92,7 +92,7 @@ $(document).ready(function() {
 		scriptCodemirror = CodeMirror.fromTextArea(scriptTextarea[0], {
 			indentWithTabs: true,
 			lineWrapping: true,
-			gutter: false,
+			lineNumbers: true,
 			indentUnit: 4,
 			mode: 'javascript'
 		});
