@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
 
   def index
     @recently_updated = Project.order('updated_at desc').limit(5)
-    @newest = Project.order('created_at desc').limit(5)
+    #@newest = Project.order('created_at desc').limit(5)
   end
 
   def not_found
