@@ -1,0 +1,17 @@
+<header>
+	<a href="/"><h1 class="pacifico">Scriptacular</h1></a>
+	<h2><% if flash[:alert] %><%= flash[:alert] %><%else %>Nice to see you again.<% end %></h2>
+</header>
+
+<%= form_tag sessions_path, class: "group" do %>
+	<div class="field">
+		<%= label_tag :email %>
+		<%= text_field_tag :email, params[:email] %>
+	</div>
+	<div class="field">
+		<%= label_tag :password %>
+		<%= password_field_tag :password %>
+	</div>
+
+	<div class="actions"><%= submit_tag "Go For It", class: "submit btn btn-info btn-large" %></div>
+<% end %>

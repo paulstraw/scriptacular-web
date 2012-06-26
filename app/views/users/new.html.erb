@@ -1,0 +1,38 @@
+<header>
+	<a href="/"><h1 class="pacifico">Scriptacular</h1></a>
+	<h2>Join the (code) party.</h2>
+</header>
+
+<%= form_for @user, html: {class: "group"} do |f| %>
+	<% if @user.errors.any? %>
+		<div class="error-messages">
+			<h3>Houston, we have one or more problem(s):</h3>
+			<ul>
+				<% @user.errors.full_messages.each do |msg| %>
+					<li><%= msg %></li>
+				<% end %>
+			</ul>
+		</div>
+	<% end %>
+
+	<div class="field">
+		<%= f.label :username %>
+		<%= f.text_field :username %>
+		<span class="help-block">Your public name on Scriptacular</span>
+	</div>
+	<div class="field">
+		<%= f.label :email %>
+		<%= f.text_field :email %>
+		<span class="help-block">No crap. Just for password resets.</span>
+	</div>
+	<div class="field">
+		<%= f.label :password %>
+		<%= f.password_field :password %>
+	</div>
+	<div class="field">
+		<%= f.label :password_confirmation, "…aannnnnd once more" %>
+		<%= f.password_field :password_confirmation %>
+	</div>
+
+	<div class="actions"><%= f.submit "All Set", class: "submit btn btn-info btn-large" %></div>
+<% end %>

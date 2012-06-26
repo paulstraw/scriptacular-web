@@ -1,11 +1,74 @@
-<a href="/new">create a project</a
+<header class="navbar navbar-fixed-top" id="top">
+	<div class="navbar-inner">
+		<div class="row">
+			<div class="span12">
+				<a class="pacifico brand pull-left" href="/">Scriptacular</a>
 
-<ul>
-	<h2>Recently Updated</h2>
-	<% @recently_updated.each do |p| %>
-		<li>
-			<h3><a href="/<%= p.slug %>/latest"><%= p.title %></a></h3>
-			<p><%= p.description %></p>
-		</li>
-	<% end %>
-</ul>
+				<% if current_user %>
+					<div class="btn-group pull-right" id="user-dropdown">
+						<div class="btn-border">
+							<a href="#user-dropdown" class="btn btn-inverse dropdown-toggle" data-toggle="dropdown">
+								<%= current_user.username %> <span class="caret"></span>
+							</a>
+						</div>
+
+						<ul class="dropdown-menu">
+							<li><%= link_to "Log Out", logout_path, method: "delete" %></li>
+						</ul>
+					</div>
+				<% else %>
+					<div class="btn-group pull-right">
+						<div class="btn-border">
+							<%= link_to "Log In", login_path, class: 'btn btn-inverse' %>
+							<%= link_to "Sign Up", signup_path, class: 'btn btn-inverse' %>
+						</div>
+					</div>
+				<% end %>
+
+				<div class="btn-group pull-right">
+					<div class="btn-border">
+						<a href="/new" class="pull-right btn btn-inverse">Make Stuff Now</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>
+
+<div class="hero-unit">
+	<div class="row">
+		<h1 class="span12">Create, Tweak, Share.</h1>
+		<p class="span9">Scriptacular is an awesome way to test code, help others learn, or just mess around with your three favorite front-end languages: HTML, CSS, and JavaScript.</p>
+	</div>
+
+	<div class="row">
+		<p class="span12"><a href="/new" class="btn btn-primary btn-large pull-right">Let's Do This &raquo;</a></p>
+	</div>
+</div>
+
+<div class="row">
+	<div class="span6">
+		<h2>Newest Projects</h2>
+
+		<ul>
+			<% @newest.each do |p| %>
+				<li>
+					<h3><a href="/<%= p.slug %>/latest"><%= p.title %></a></h3>
+					<p><%= p.description %></p>
+				</li>
+			<% end %>
+		</ul>
+	</div>
+	<div class="span6">
+		<h2>Recently Updated Projects</h2>
+
+		<ul>
+			<% @recently_updated.each do |p| %>
+				<li>
+					<h3><a href="/<%= p.slug %>/latest"><%= p.title %></a></h3>
+					<p><%= p.description %></p>
+				</li>
+			<% end %>
+		</ul>
+	</div>
+</div>
