@@ -16,6 +16,50 @@
 		<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
 	</head>
 	<body>
+		<header class="navbar navbar-fixed-top" id="top">
+			<div class="navbar-inner">
+				<div class="row">
+					<div class="span12">
+						<a class="pacifico brand pull-left" href="/">Scriptacular</a>
+
+						<% if current_user %>
+							<div class="btn-group pull-right" id="user-dropdown">
+								<div class="btn-border">
+									<a href="#user-dropdown" class="btn btn-inverse dropdown-toggle" data-toggle="dropdown">
+										<%= current_user.username %> <span class="caret"></span>
+									</a>
+								</div>
+
+								<ul class="dropdown-menu">
+									<li><%= link_to "Profile", user_path(current_user) %></li>
+									<li><%= link_to "Log Out", logout_path, method: "delete" %></li>
+								</ul>
+							</div>
+						<% else %>
+							<div class="btn-group pull-right">
+								<div class="btn-border">
+									<%= link_to "Log In", login_path, class: 'btn btn-inverse' %>
+									<%= link_to "Sign Up", signup_path, class: 'btn btn-inverse' %>
+								</div>
+							</div>
+						<% end %>
+
+						<div class="btn-group pull-right">
+							<div class="btn-border">
+								<%= link_to "Users", users_path, class: 'btn btn-inverse' %>
+							</div>
+						</div>
+
+						<div class="btn-group pull-right">
+							<div class="btn-border">
+								<a href="/new" class="pull-right btn btn-inverse">Make a Project</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+
 		<%= yield %>
 	</body>
 </html>

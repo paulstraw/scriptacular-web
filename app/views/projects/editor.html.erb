@@ -2,12 +2,27 @@
 	<div class="navbar-inner">
 		<a class="pacifico brand pull-left" href="/">Scriptacular</a>
 
-		<div class="btn-group pull-right">
-			<div class="btn-border">
-				<a class="btn btn-inverse" href="/login">Log In</a>
-				<a class="btn btn-inverse" href="/signup">Sign Up</a>
+		<% if current_user %>
+			<div class="btn-group pull-right" id="user-dropdown">
+				<div class="btn-border">
+					<a href="#user-dropdown" class="btn btn-inverse dropdown-toggle" data-toggle="dropdown">
+						<%= current_user.username %> <span class="caret"></span>
+					</a>
+				</div>
+
+				<ul class="dropdown-menu">
+					<li><%= link_to "Profile", user_path(current_user) %></li>
+					<li><%= link_to "Log Out", logout_path, method: "delete" %></li>
+				</ul>
 			</div>
-		</div>
+		<% else %>
+			<div class="btn-group pull-right">
+				<div class="btn-border">
+					<%= link_to "Log In", login_path, class: 'btn btn-inverse' %>
+					<%= link_to "Sign Up", signup_path, class: 'btn btn-inverse' %>
+				</div>
+			</div>
+		<% end %>
 
 		<div class="btn-group pull-right" id="javascript-libraries-dropdown-trigger">
 			<div class="btn-border">

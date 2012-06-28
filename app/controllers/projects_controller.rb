@@ -50,6 +50,10 @@ class ProjectsController < ApplicationController
 	def create
 		@project = Project.new(params[:project])
 
+		if current_user
+			@project.user_id = current_user.id
+		end
+
 		@project.save
 		redirect_to(@project)
 	end
@@ -57,7 +61,14 @@ class ProjectsController < ApplicationController
 	def update
 		@project = Project.find_by_slug(params[:id])
 
+		if current_user
+			@project.user_id = current_user.id
+		else
+			@project.user_id = nil
+		end
+
 		@project.update_attributes(params[:project])
+
 		redirect_to "/#{@project.slug}/#{@project.versions.length}"
 	end
 end

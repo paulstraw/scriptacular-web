@@ -6,7 +6,7 @@ ScriptacularWeb::Application.routes.draw do
   resources :users
   resources :sessions
 
-  resources :projects, :path => '' do
+  resources :projects, except: [:index], path: '' do
     member do
       get ':revision', :action => 'show'
     end

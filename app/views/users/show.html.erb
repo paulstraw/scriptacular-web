@@ -1,0 +1,10 @@
+<div class="row">
+	<div class="span12">
+		<h1><%= @user.username %></h1>
+	</div>
+	<ul class="span12">
+		<% @user.get_projects.each do |project| %>
+			<li><a href="/<%= project.slug %>/<%= project.live? ? "latest" : "#{project.version.index}" %>"><%= project.title %></a></li>
+		<% end %>
+	</ul>
+</div>

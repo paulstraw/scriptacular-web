@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+  layout 'projects'
+
   def new
   end
 

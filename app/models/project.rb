@@ -3,6 +3,8 @@ class Project < ActiveRecord::Base
 
   attr_accessible :description, :markup, :script, :style, :title, :libraries
 
+  belongs_to :user
+
   def to_param
     slug
   end
