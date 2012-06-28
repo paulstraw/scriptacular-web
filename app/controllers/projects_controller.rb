@@ -12,7 +12,9 @@ class ProjectsController < ApplicationController
 		end
 
 
+		@latest_version = @project
 		@version_count = @project.versions.length
+		@versions = @project.versions
 
 		#since the latest version is stored as the current object in the database already, we only need to display a version if we're not showing latest
 		if @the_version > @version_count || params[:revision] == 'latest'

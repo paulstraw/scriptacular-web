@@ -41,11 +41,19 @@
 				</a>
 			</div>
 
-			<ul class="dropdown-menu">
-				<% if @version_count then @version_count.times do |i| %>
-					<% version_number = i + 1 %>
-					<li><a href=<%= "/#{@the_id}/#{version_number}" %>>Version <%= version_number %></a></li>
-				<% end end %>
+			<ul class="dropdown-menu" id="project-versions-dropdown">
+				<% @versions.each do |version| %>
+					<%# TODO messy %>
+					<% reified = version.next ? version.next.reify : @latest_version %>
+					<li>
+						<a href=<%= "/#{@the_id}/#{version.index + 1}" %>>
+							Version <%= version.index + 1 %>
+							<span class="who">
+								(by <%= reified.user_id ? reified.user.username : 'anon' %>)
+							</span>
+						</a>
+					</li>
+				<% end %>
 			</ul>
 		</div>
 
