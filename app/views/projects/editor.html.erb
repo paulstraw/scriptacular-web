@@ -33,29 +33,31 @@
 			</ul>
 		</div>
 
-		<div class="btn-group pull-right" id="version-dropdown">
-			<div class="btn-border">
-				<a href="#version-dropdown" class="btn btn-inverse dropdown-toggle" data-toggle="dropdown">
-					Version <%= @the_version %>
-					<%# if @the_version == @version_count then '<span class="label label-inverse">Latest</span> '.html_safe end %><span class="caret"></span>
-				</a>
-			</div>
+		<% if @versions %>
+			<div class="btn-group pull-right" id="version-dropdown">
+				<div class="btn-border">
+					<a href="#version-dropdown" class="btn btn-inverse dropdown-toggle" data-toggle="dropdown">
+						Version <%= @the_version %>
+						<%# if @the_version == @version_count then '<span class="label label-inverse">Latest</span> '.html_safe end %><span class="caret"></span>
+					</a>
+				</div>
 
-			<ul class="dropdown-menu" id="project-versions-dropdown">
-				<% @versions.each do |version| %>
-					<%# TODO messy %>
-					<% reified = version.next ? version.next.reify : @latest_version %>
-					<li>
-						<a href=<%= "/#{@the_id}/#{version.index + 1}" %>>
-							Version <%= version.index + 1 %>
-							<span class="who">
-								(by <%= reified.user_id ? reified.user.username : 'anon' %>)
-							</span>
-						</a>
-					</li>
-				<% end %>
-			</ul>
-		</div>
+				<ul class="dropdown-menu" id="project-versions-dropdown">
+					<% @versions.each do |version| %>
+						<%# TODO messy %>
+						<% reified = version.next ? version.next.reify : @latest_version %>
+						<li>
+							<a href=<%= "/#{@the_id}/#{version.index + 1}" %>>
+								Version <%= version.index + 1 %>
+								<span class="who">
+									(by <%= reified.user_id ? reified.user.username : 'anon' %>)
+								</span>
+							</a>
+						</li>
+					<% end %>
+				</ul>
+			</div>
+		<% end %>
 
 		<div class="btn-group pull-right">
 			<div class="btn-border">
