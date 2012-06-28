@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
     # TODO this is hacky
     current = Project.where(user_id: id)
     previous = Version.where(whodunnit: id).group('item_id').order('created_at desc').map do |version|
-      version.next ? version.next.reify : version.reify
+      version.next ? version.next.reify : current.first # TODO ugly ugly ugly
     end
     all = current + previous
 
